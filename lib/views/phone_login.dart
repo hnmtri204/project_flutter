@@ -13,8 +13,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
   final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
 
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController _otpController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
 
   String countryCode = "+91";
 
@@ -37,15 +37,15 @@ class _PhoneLoginState extends State<PhoneLogin> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Welcome to FstChat",
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
                     ),
-                    Text(
+                    const Text(
                       "Enter your phone number to continue",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Form(
@@ -54,8 +54,9 @@ class _PhoneLoginState extends State<PhoneLogin> {
                           controller: _phoneNumberController,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value!.length != 10)
+                            if (value!.length != 10) {
                               return "Invalid phone number";
+                            }
                             return null;
                           },
                           decoration: InputDecoration(
@@ -70,26 +71,29 @@ class _PhoneLoginState extends State<PhoneLogin> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12)))),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     SizedBox(
                       height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
-                        child: Text('Send OTP'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             showDialog(
                                 context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text("OTP Verification"),
-                                ));
+                                builder: (context) => const AlertDialog(
+                                    title: Text("OTP Verification"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [Text("Enter the 6 digit OTP")],
+                                    )));
                           }
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: kPrimaryColor,
                             foregroundColor: Colors.white),
+                        child: Text('Send OTP'),
                       ),
                     )
                   ],
